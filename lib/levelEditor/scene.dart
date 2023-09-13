@@ -4,10 +4,10 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/services.dart';
-import 'floodFill.dart';
-import './model/modelRenderer.dart';
+import 'flood_fill.dart';
+import 'model/model_renderer.dart';
 import 'package:vector_math/vector_math_64.dart' hide Triangle, Vector4, Colors;
-import 'levelEditor.dart';
+import 'level_editor.dart';
 import '../editors/editors.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
@@ -94,7 +94,7 @@ class LevelScene {
 
     return !(hasNeg && hasPos);
   }
-  bool _doesContain(Rect rect,double angle){
+  bool doesContain(Rect rect,double angle){
     Offset topLeft = _getPoint(rect.topLeft,rect.center, angle);
     Offset topRight = _getPoint(rect.topRight,rect.center, angle);
     Offset bottomLeft = _getPoint(rect.bottomLeft,rect.center, angle);
@@ -166,9 +166,9 @@ class LevelScene {
       int k = 0;
       Size size = levelInfo[selectedLevel].grid.boxSize;
 
-      TileAtlas _tiles = TileAtlas();
+      TileAtlas tiles = TileAtlas();
       final int selectedLayer = levelInfo[selectedLevel].selectedTileLayer;
-      List<TileRects> _tileRects = levelInfo[selectedLevel].tileLayer[selectedLayer].tiles;
+      List<TileRects> tileRects = levelInfo[selectedLevel].tileLayer[selectedLayer].tiles;
       
       for(int h = 0; h < length; h++){
         if(h != 0 && h%levelInfo[selectedLevel].grid.width != 0){
@@ -202,7 +202,7 @@ class LevelScene {
             if(!isClicked && brushStyle == BrushStyles.stamp){
               final double off = tileSets[selectedTile[0].tileSet!].offsetHeight.toDouble();
               final Rect updateRect = Rect.fromLTWH(selectedTile[0].rect!.left, selectedTile[0].rect!.top+off, selectedTile[0].rect!.width, selectedTile[0].rect!.height);
-              _tileRects[i] = TileRects(
+              tileRects[i] = TileRects(
                 position: [j,k],
                 tileSet: selectedTile[0].tileSet!,
                 rect: updateRect,
@@ -219,7 +219,7 @@ class LevelScene {
               updateMinMap = true;
             }
             else if(!isClicked && BrushStyles.erase == brushStyle){
-              _tileRects[i] = TileRects();
+              tileRects[i] = TileRects();
               updateMinMap = true;
             }
             isClicked = true;
@@ -268,23 +268,23 @@ class LevelScene {
           for(int l = 0; l < levelInfo[selectedLevel].tileLayer.length; l++){
             if(levelInfo[selectedLevel].tileLayer[l].visible && levelInfo[selectedLevel].tileLayer[l].tiles[i].position.isNotEmpty){
               hasTile = true;
-              final List<TileRects> _newTileRects = levelInfo[selectedLevel].tileLayer[l].tiles;
-              Rect newRect = _newTileRects[i].rect;
-              if(_newTileRects[i].isAnimation){
-                final int frame = levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].useFrame;
-                final int set = levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].tileSet;
+              final List<TileRects> newTileRects = levelInfo[selectedLevel].tileLayer[l].tiles;
+              Rect newRect = newTileRects[i].rect;
+              if(newTileRects[i].isAnimation){
+                final int frame = levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].useFrame;
+                final int set = levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].tileSet;
                 final double off = tileSets[set].offsetHeight.toDouble();
                 newRect = Rect.fromLTWH(
-                  levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].rects[frame].left, 
-                  levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].rects[frame].top+off, 
-                  levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].rects[frame].width, 
-                  levelInfo[selectedLevel].animations[_newTileRects[i].useAnimation].rects[frame].height
+                  levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].rects[frame].left, 
+                  levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].rects[frame].top+off, 
+                  levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].rects[frame].width, 
+                  levelInfo[selectedLevel].animations[newTileRects[i].useAnimation].rects[frame].height
                 );
               }
-              final double scale = (camera.zoom*levelInfo[selectedLevel].grid.boxSize.width/_newTileRects[i].rect.width);
+              final double scale = (camera.zoom*levelInfo[selectedLevel].grid.boxSize.width/newTileRects[i].rect.width);
 
-              _tiles.rect.add(newRect);
-              _tiles.transform.add(
+              tiles.rect.add(newRect);
+              tiles.transform.add(
                 RSTransform.fromComponents(rotation: 0, scale: scale, anchorX: 0, anchorY: 0, translateX: rect.left, translateY: rect.top)
               );
             }
@@ -299,11 +299,11 @@ class LevelScene {
       }
 
       if(tileSets.isNotEmpty){
-        if(_tiles.rect.isNotEmpty){
+        if(tiles.rect.isNotEmpty){
           canvas.drawAtlas(
             allTileImage!, 
-            _tiles.transform, 
-            _tiles.rect, 
+            tiles.transform, 
+            tiles.rect, 
             [], 
             BlendMode.srcOver, 
             null, 
@@ -316,7 +316,7 @@ class LevelScene {
   void generateMiniMap() async{
     if(levelInfo[selectedLevel].objects.isEmpty && allTileImage == null || !updateMinMap) return;
     updateMinMap = false;
-    TileAtlas _tiles = TileAtlas();
+    TileAtlas tiles = TileAtlas();
     List<Offset> pos = [];
     List<Offset> text = [];
 
@@ -337,8 +337,8 @@ class LevelScene {
             );
             Offset newPosition = Converter.toOffset(camera.position,position);
             double scale = (levelInfo[selectedLevel].grid.boxSize.width/tileRectes[i].rect.width);
-            _tiles.rect.add(tileRectes[i].rect);
-            _tiles.transform.add(              
+            tiles.rect.add(tileRectes[i].rect);
+            tiles.transform.add(              
               RSTransform.fromComponents(
                 rotation: 0, 
                 scale: scale, 
@@ -354,7 +354,7 @@ class LevelScene {
     }
 
     Size size = Size(levelInfo[selectedLevel].grid.boxSize.width*levelInfo[selectedLevel].grid.width,levelInfo[selectedLevel].grid.boxSize.height*levelInfo[selectedLevel].grid.height);
-    await _generateImage(_tiles,allTileImage,pos,text,allObjectImage,size).then((value){
+    await _generateImage(tiles,allTileImage,pos,text,allObjectImage,size).then((value){
       levelImage = value;
       //updateMinMap = true;
     });
@@ -560,7 +560,7 @@ class LevelScene {
   void addLevel(){
     levelInfo.add(
       Levels(
-        name: 'Level'+(levelInfo.length+1).toString(),
+        name: 'Level${levelInfo.length+1}',
       )
     );
     update();
@@ -720,8 +720,7 @@ class LevelScene {
   Future<Image> _loadImage(String fileName) async{
     final c = Completer<Image>();
     String basePath = kIsWeb?'assets':path.dirname(fileName);
-    print(basePath);
-    if(basePath == 'assets'){
+    if(basePath.contains('assets')){
       await rootBundle.load(fileName).then((data){
         instantiateImageCodec(data.buffer.asUint8List()).then((codec) {
           codec.getNextFrame().then((frameInfo) {
@@ -731,7 +730,6 @@ class LevelScene {
       });
     }
     else if(basePath.contains('http') ||basePath.contains('https')){
-      print('getting url');
       await http.get(Uri.parse(fileName));
     }
     else{

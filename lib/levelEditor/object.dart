@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart' hide Image, Material;
 import 'package:vector_math/vector_math_64.dart' hide Triangle hide Colors;
 import '../editors/editors.dart';
-import 'levelEditor.dart';
+import 'level_editor.dart';
 
 enum ObjectType{landscape,charcter,item}
 enum LoadedType{sheet,single}
@@ -238,7 +238,7 @@ class TileImage{
   String name;
   String path;
   late Vector3 position;
-  Vector2 _from = Vector2(0,0);
+  Vector2 from = Vector2(0,0);
   Color color;
   late TileGrid grid;
   double _zoom = 1.0;
@@ -381,18 +381,18 @@ class TileImage{
     return await recorder.endRecording().toImage(size.width.toInt(), size.height.toInt());
   }
   void updatePositionStart(Vector2 to){
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void updatePosition(Vector2 to, [double sensitivity=1.0]){
-    final double x = ((to.x - _from.x))/100*sensitivity;
-    final double y = ((to.y - _from.y))/100*sensitivity;
+    final double x = ((to.x - from.x))/100*sensitivity;
+    final double y = ((to.y - from.y))/100*sensitivity;
 
     position.x += x;
     position.y -= y;
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void move(int x, int y,[double sensitivity=1.0]){
     position.x += x/100*sensitivity;
@@ -532,7 +532,7 @@ class Object {
   String name;
   Vector3 _tempPosition = Vector3.zero();
   late Size size;
-  Vector2 _from = Vector2(0,0);
+  Vector2 from = Vector2(0,0);
   late List<Mesh> mesh;
   int imageLocation;
   SelectedType type;
@@ -555,18 +555,18 @@ class Object {
     //transform.rotateX(pi/2);
   }
   void updatePositionStart(Vector2 to){
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void updatePosition(Vector2 to, [double sensitivity=1.0]){
-    final double x = ((to.x - _from.x))/100*sensitivity;
-    final double y = ((to.y - _from.y))/100*sensitivity;
+    final double x = ((to.x - from.x))/100*sensitivity;
+    final double y = ((to.y - from.y))/100*sensitivity;
 
     position.x += x;
     position.y -= y;
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
 
     updateTransform();
   }
@@ -596,23 +596,23 @@ class Object {
   }
   void scaleMouse(Vector2 to, [double sensitivity=1.0]){
     if(!scaleAllowed) return; 
-    final double x = ((to.x - _from.x))/10000*sensitivity;
-    final double y = ((to.y - _from.y))/10000*sensitivity;
+    final double x = ((to.x - from.x))/10000*sensitivity;
+    final double y = ((to.y - from.y))/10000*sensitivity;
     //size = Size(size.width+x,size.height+y);
     scale.x += x;
     scale.y += y;
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
     updateTransform();
   }
   void rotateMouse(Vector2 to, [double sensitivity=1.0]){
-    final double x = ((to.x - _from.x))*sensitivity;
-    final double y = ((to.y - _from.y))*sensitivity;
+    final double x = ((to.x - from.x))*sensitivity;
+    final double y = ((to.y - from.y))*sensitivity;
 
     rotation.z += x-y;
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
 
     updateTransform();
   }
@@ -631,7 +631,7 @@ Object createObject({
   List<Offset>? textcoords,
   Rect? textureRect,
 }){
-  Color _color = color ?? Colors.red;
+  color ??= Colors.red;
   return (type != SelectedType.atlas && type != SelectedType.image )?Object(
     position: position,
     rotation: rotation,
@@ -656,7 +656,7 @@ Object createObject({
     layer: layer,
     imageLocation: imageLocation,
     type: type,
-    color: _color
+    color: color
   ):Object(
     position: position,
     rotation: rotation,
@@ -681,6 +681,6 @@ Object createObject({
     layer: layer,
     imageLocation: imageLocation,
     type: type,
-    color: _color
+    color: color
   );
 }

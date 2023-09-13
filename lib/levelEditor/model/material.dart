@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as path;
@@ -40,11 +41,13 @@ class Material {
 /// load an image from asset
 Future<Image> loadImageFromAsset(String fileName, {bool isAsset = true, bool makeGray = false}) {
   final c = Completer<Image>();
-  var dataFuture;
-  if (isAsset) 
+  Future<Uint8List> dataFuture;
+  if (isAsset){
     dataFuture = rootBundle.load(fileName).then((data) => data.buffer.asUint8List());
-  else 
+  }
+  else{
     dataFuture = File(fileName).readAsBytes();
+  }
 
   dataFuture.then((data) {
     // if(makeGray){

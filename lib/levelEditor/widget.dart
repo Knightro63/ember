@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
-import './model/modelRenderer.dart';
-import '../navigation/rightClick.dart';
+import 'model/model_renderer.dart';
+import '../navigation/right_click.dart';
 import 'package:vector_math/vector_math_64.dart' hide Colors,Triangle;
-import 'levelEditor.dart';
+import 'level_editor.dart';
 import '../editors/editors.dart';
 import 'package:flutter/material.dart';
-import 'textEdit.dart';
+import 'text_edit.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 typedef void SceneCreatedCallback(LevelScene scene);
@@ -49,23 +49,23 @@ class _LevelEditorState extends State<LevelEditor> {
   final FocusNode _focusNode = FocusNode();
   List<RightClickOptions> handelRightClick(){
     List<RightClickOptions> toShow = [
-      RightClickOptions.add_collision,
-      RightClickOptions.add_object,
+      RightClickOptions.addCollision,
+      RightClickOptions.addObject,
     ];
     if(scene.objectTappedOn.isNotEmpty){
       if(scene.objectTappedOn.length == 1 
         && (scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn.first.objectLocation].type == SelectedType.atlas
         || scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn.first.objectLocation].type == SelectedType.image)
       ){
-        toShow += [RightClickOptions.flip_horizontal,RightClickOptions.flip_vertical,RightClickOptions.edit_name];
+        toShow += [RightClickOptions.flipHorizontal,RightClickOptions.flipVertical,RightClickOptions.editName];
       }
       if(scene.objectTappedOn.length == 1 && scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn.first.objectLocation].type == SelectedType.object){
-        toShow += [RightClickOptions.edit_name,RightClickOptions.change_color];
+        toShow += [RightClickOptions.editName,RightClickOptions.changeColor];
       }
       toShow += [
         RightClickOptions.remove,
-        RightClickOptions.bring_to_front,
-        RightClickOptions.send_to_back,
+        RightClickOptions.bringToFront,
+        RightClickOptions.sendToBack,
         RightClickOptions.copy,
         RightClickOptions.cut
       ];
@@ -75,8 +75,8 @@ class _LevelEditorState extends State<LevelEditor> {
     }
     else if(scene.objectsCopied.isNotEmpty){
       toShow = [
-        RightClickOptions.add_collision,
-        RightClickOptions.add_object,     
+        RightClickOptions.addCollision,
+        RightClickOptions.addObject,     
         RightClickOptions.paste,
       ];
     }
@@ -94,19 +94,19 @@ class _LevelEditorState extends State<LevelEditor> {
       case RightClickOptions.paste:
         widget.scene.paste();
         break;
-      case RightClickOptions.add_object:
+      case RightClickOptions.addObject:
         widget.scene.addObject(Object(
           type: SelectedType.object,
           name: 'Object'
         ));
         break;
-      case RightClickOptions.send_to_back:
+      case RightClickOptions.sendToBack:
         widget.scene.sendToBack();
         break;
-      case RightClickOptions.edit_name:
+      case RightClickOptions.editName:
         textEdit?.open(_lastFocalPoint,scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn.first.objectLocation].name);
         break;
-      case RightClickOptions.change_color:
+      case RightClickOptions.changeColor:
         changeColor(
           context, 
           scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn.first.objectLocation].color
@@ -116,10 +116,10 @@ class _LevelEditorState extends State<LevelEditor> {
           }
         });
         break;
-      case RightClickOptions.bring_to_front:
+      case RightClickOptions.bringToFront:
         widget.scene.bringToFront();
         break;
-      case RightClickOptions.add_collision:
+      case RightClickOptions.addCollision:
         widget.scene.addObject(Object(
           type: SelectedType.collision,
           name: 'Collision',
@@ -137,10 +137,10 @@ class _LevelEditorState extends State<LevelEditor> {
         case RightClickOptions.remove:
           scene.removeObject(selectedObject.objectLocation);
           break;
-        case RightClickOptions.flip_horizontal:
+        case RightClickOptions.flipHorizontal:
           scene.levelInfo[scene.selectedLevel].objects[selectedObject.objectLocation].flipHorizontal();
           break;
-        case RightClickOptions.flip_vertical:
+        case RightClickOptions.flipVertical:
           scene.levelInfo[scene.selectedLevel].objects[selectedObject.objectLocation].filpVertical();
           break;
         default:
@@ -171,7 +171,7 @@ class _LevelEditorState extends State<LevelEditor> {
     didStart = true;
     setState(() {});
   }
-  void _handleScaleUpdate(double scale, Offset localFocalPoint, bool pan) {
+  void _handleScaleUpdate(double? scale, Offset localFocalPoint, bool pan) {
     if(scene.isClicked && (_mouseType == 1 || _mouseType == -1)){
       for(int i = 0; i < scene.objectTappedOn.length; i++){
         Object obj = scene.levelInfo[scene.selectedLevel].objects[scene.objectTappedOn[i].objectLocation];
@@ -182,7 +182,7 @@ class _LevelEditorState extends State<LevelEditor> {
       if(!pan){
         double zoom = scene.camera.zoom;
         if (_lastZoom == null){
-          _scale = scale;
+          _scale = scale!;
           _lastZoom = scene.camera.zoom;
         }
         if(scale != null){

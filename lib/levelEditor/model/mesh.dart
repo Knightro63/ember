@@ -254,8 +254,9 @@ void _rebuildVertices(List<Vector3> vertices, List<Vector3> normals, List<Offset
         if(vnIndex!=null)newNormals.add(normals[vnIndex].clone());
         newTexcoords.add(texcoords[tIndex]);
       } 
-      else 
+      else{
         face[j] = v;
+      }
     }
     vertexIndices[i].copyFromArray(face);
   }
@@ -272,7 +273,7 @@ void _rebuildVertices(List<Vector3> vertices, List<Vector3> normals, List<Offset
     ..addAll(newTexcoords);
 }
 
-Vertex _removeDuplicates(List<Vector3> fromVertices,List<Triangle> fromIndices){
+Vertex removeDuplicates(List<Vector3> fromVertices,List<Triangle> fromIndices){
   List<Triangle> toIndices = [];
   List<Vector3> toVertices = fromVertices.toSet().toList();
 

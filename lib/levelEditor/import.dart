@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 
-import 'levelEditor.dart';
+import 'level_editor.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import '../editors/other.dart';
@@ -270,7 +270,6 @@ class JLELoader{
         case 'levels':
           List<Levels> levels = [];
           for(String level in convert[keys].keys){
-            print(level);
             Grid grid = _getGrid(convert[keys][level]['grid']);
             levels.add(Levels(
               name: convert[keys][level]['name'],

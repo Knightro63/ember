@@ -1,8 +1,7 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'dart:convert';
-import 'levelEditor.dart';
+import 'level_editor.dart';
 import '../editors/other.dart';
 
 class LevelExporter{
@@ -94,7 +93,7 @@ class LevelExporter{
   }
   static dynamic _getObjects(List<Object> objects){
     dynamic object = {};
-    dynamic _getAtlas(int i){
+    dynamic getAtlas(int i){
       if(objects[i].type != SelectedType.atlas){ return null;}
       else{
         double off = objects[i].mesh.first.texcoords!.last.dy-objects[i].mesh.first.texcoords!.first.dy;
@@ -134,7 +133,7 @@ class LevelExporter{
             'y': objects[i].scale.y,
             'z': objects[i].scale.z,
           },
-          'atlas':_getAtlas(i),
+          'atlas':getAtlas(i),
         };
     }
 
@@ -341,5 +340,6 @@ class LevelExporter{
       final val = await scene.levelImage!.toByteData(format: ImageByteFormat.png);
       return val!.buffer.asUint8List();
     }
+    return null;
   }
 }
