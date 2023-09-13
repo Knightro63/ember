@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
 
+/// Mouse right click or tap and hold options 
+/// [addCollision] adds a collision rectangle to the scene
+/// 
+/// [addObject] adds a rect object to the scene
+/// 
+/// [remove] remove the current clicked on items
+/// 
+/// [bringToFront] bring the current clicked item one layer closer to the front
+/// 
+/// [sendToBack] send the current clicked item one layer back
+/// 
+/// [editName] edit the name of the selected item
+/// 
+/// [changeColor] change the color of an object
+/// 
+/// [flipHorizontal] flip the current item horizontally
+/// 
+/// [flipVertical] flip the current item vertically
+/// 
+/// [copy] copy item to clipboard
+/// 
+/// [cut] remove item and save to clipboard
+/// 
+/// [paste] pase item/s from clipboard
+/// 
 enum RightClickOptions{
-  addAnimation,
-  removeAnimation,
-  addFrame,
-  removeFrame,
-  cutoutArea,
-  copyArea,
-  removeArea,
+  // addAnimation,
+  // removeAnimation,
+  // addFrame,
+  // removeFrame,
+  // cutOutArea,
+  // copyArea,
+  // removeArea,
   addCollision,
   addObject,
   remove,
-  clearTile,
+  // clearTile,
   bringToFront,
   sendToBack,
   editName,
@@ -24,6 +49,9 @@ enum RightClickOptions{
   none
 }
 
+/// A class that determines what to do with the mouse right click or tap and hold options
+/// 
+/// 
 class RightClick{
   RightClick({
     required BuildContext context,

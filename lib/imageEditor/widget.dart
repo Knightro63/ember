@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart' hide Image;
 import '../levelEditor/widget.dart';
-import 'package:vector_math/vector_math_64.dart';
-import 'imageEditor.dart';
+import 'image_editor.dart';
 import '../editors/editors.dart';
 import 'package:flutter/material.dart';
 

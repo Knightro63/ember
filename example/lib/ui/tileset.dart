@@ -450,8 +450,8 @@ class _TilesetState extends State<Tileset>{
                 textColor: Theme.of(context).cardColor,
                 buttonColor: Theme.of(context).primaryTextTheme.bodyMedium!.color!,
                 height: 30,
-                radius: 30/2,
-                width: 300/3-10,
+                radius: 5,
+                width: 300/3-7,
               ),
               SquareButton(
                 text:'combine',
@@ -465,7 +465,7 @@ class _TilesetState extends State<Tileset>{
                 textColor: Theme.of(context).cardColor,
                 buttonColor: Theme.of(context).primaryTextTheme.bodyMedium!.color!,
                 height: 30,
-                radius: 30/2,
+                radius: 5,
                 width: 300/3-10,
               ),
               SquareButton(
@@ -479,7 +479,7 @@ class _TilesetState extends State<Tileset>{
                 textColor: Theme.of(context).cardColor,
                 buttonColor: Theme.of(context).primaryTextTheme.bodyMedium!.color!,
                 height: 30,
-                radius: 30/2,
+                radius: 5,
                 width: 300/3-10,
               ),
             ])

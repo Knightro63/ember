@@ -254,7 +254,7 @@ class _LevelEditorState extends State<LevelEditor> {
           }
         }
 
-        if(hotKeys.isDirection_x){
+        if(hotKeys.isDirectionX){
           x = int.parse(hotKeys.currentMove);
         }
         else{

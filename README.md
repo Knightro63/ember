@@ -1,14 +1,18 @@
 # ember
 
-A Flutter plugin designed for bonfire to allow users to create their own levels using tile sheets and sprite sheets.
+[![Pub Version](https://img.shields.io/pub/v/ember)](https://pub.dev/packages/ember)
+[![analysis](https://github.com/Knightro63/ember/actions/workflows/flutter.yml/badge.svg)](https://github.com/Knightro63/ember/actions/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+
+A Flutter plugin designed for flutter flame and bonfire to allow users to create their own levels using tile sheets and sprite sheets.
 
 ## Getting started
 
-To get started with ember add the package and some assets that work in you game to your pubspec.yaml file.
+To get started with ember add the package to your pubspec.yaml file.
 
 ## Usage
 
-This project is a basic Tiled generator that is able to be placed directly into a bonfire game as a create level section. 
+This project is a basic Tiled generator that is able to be placed directly into a flutter flame or bonfire game as a create level section. 
 
 In this plugin there are two main scenes the LevelEditor scene and the ImageEditor scene. These two scenes work with each other to create the desired level with all the information available.
 
@@ -21,14 +25,7 @@ To get started add LevelScene and Grid at the top of you file and in the init ei
 
 ```dart
   late LevelScene levelScene;
-  Grid get grid => getGrid();
-  Grid getGrid(){
-    Grid _grid = Grid();
-    setState(() {
-      if (levelScene == null) _grid = Grid();
-    });
-    return _grid;
-  }
+  Grid get grid => Grid();
 
   @override
   void initState(){
@@ -76,7 +73,7 @@ Lastly add the LevleEditor widget to your widget tree.
     scene: levelScene,
     interactive: true,
     callback: callback,
-  )
+  );
 ```
 
 ### ImageEditor
@@ -97,9 +94,16 @@ To get started add TileScene at the top of you file and in the initadd the Level
   }
 ```
 
+## Example app
+
+A basic example of this is located in the example folder. A more advanced version of the example can be found [here](https://github.com/Knightro63/level_editor).
+
 ## Contributing
 
-Feel free to propose changes by creating a pull request.
+Contributions are welcome.
+In case of any problems look at [existing issues](https://github.com/Knightro63/ember/issues), if you cannot find anything related to your problem then open an issue.
+Create an issue before opening a [pull request](https://github.com/Knightro63/ember/pulls) for non trivial fixes.
+In case of trivial fixes open a [pull request](https://github.com/Knightro63/ember/pulls) directly.
 
 ## Additional Information
 

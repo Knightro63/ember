@@ -18,8 +18,8 @@ paste,
 cut,
 control,
 move,
-direction_x,
-direction_y,
+directionX,
+directionY,
 none,
 number,
 enter,
@@ -39,7 +39,7 @@ class HotKeys{
   bool directionPressed;
   bool scalePressed;
   bool rotatePressed;
-  bool isDirection_x = false;
+  bool isDirectionX = false;
   String currentMove;
 
   bool isNumberPressed(String? number){
@@ -113,13 +113,13 @@ class HotKeys{
         case 120:
           if(movePressed || scalePressed){
             directionPressed = true;
-            isDirection_x = true;
+            isDirectionX = true;
           }
           return HotKeyTypes.none;
         case 121:
           if(movePressed || scalePressed){
             directionPressed = true;
-            isDirection_x = false;
+            isDirectionX = false;
           }
           return HotKeyTypes.none;
         default:

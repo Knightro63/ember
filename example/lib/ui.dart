@@ -48,7 +48,8 @@ class _UIPageState extends State<UIScreen> {
     levelScene.loadObject(
       'assets/tiled/pirate.png',
       LoadedType.sheet,
-      objType: ObjectType.charcter
+      objType: ObjectType.charcter,
+      
     );
     levelScene.loadObject(
       'assets/tiled/tree.png',

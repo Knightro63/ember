@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:vector_math/vector_math_64.dart' hide Triangle, Vector4, Colors;
-import 'imageEditor.dart';
+import 'image_editor.dart';
 import '../editors/editors.dart';
 
 class Rectangle{
@@ -33,14 +33,14 @@ class Rectangle{
 class ImageScene {
   ImageScene({
     VoidCallback? onStartUp,
-    this.selectableType = SelectedType.rect
+    this.selectableType = SelectedType.image
   }) {
-    this._onStartUp = onStartUp;
+    _onStartUp = onStartUp;
     update();
   }
 
   List<SpriteImage> sprites = [];
-  Offset _spriteOffset = Offset(0,0); //offet of the initial sprite rect
+  Offset spriteOffset = const Offset(0,0); //offet of the initial sprite rect
   List<Object> collisions = [];
   Vector3 origionalPos = Vector3(0,0,0);
   String? fileName;
@@ -157,7 +157,7 @@ class ImageScene {
         }
       }
     }
-
+    print(type == selectableType);
     if(tapLocation != null && rect.contains(tapLocation!) && isDifferent && type == selectableType){
       isClicked = true;
       if(currentSize == null){
@@ -201,7 +201,7 @@ class ImageScene {
   }
 
   void addSprite(SpriteImage sprite) async{
-    _spriteOffset = Offset(sprite.section.left,sprite.section.top);
+    spriteOffset = Offset(sprite.section.left,sprite.section.top);
     await _getImage(sprite.sprite,sprite.section).then((value){
       sprite.sprite = value;
       sprites.add(sprite);
@@ -231,6 +231,7 @@ class ImageScene {
   }
   // Mark needs update texture
   void updateTapLocation(Offset details) {
+    print(details);
     if(!isControlPressed){
       objectTappedOn = [];
       currentSize = null;
