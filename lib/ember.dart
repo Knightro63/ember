@@ -11,5 +11,5 @@ export 'editors/camera.dart';
 export 'editors/editors.dart';
 
 export 'imageEditor/scene.dart';
-export 'imageEditor/widget.dart' hide SceneCreatedCallback;
+export 'imageEditor/widget.dart';
 export 'imageEditor/object.dart' hide Object, SelectedObjects;

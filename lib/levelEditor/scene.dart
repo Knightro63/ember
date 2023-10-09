@@ -707,7 +707,7 @@ class LevelScene {
       );
     }
 
-    ModelRender(LevelScene()
+    ModelRender(scene:LevelScene()
     ..camera = Camera(
         position: Vector3(-12,2,0),
         viewportHeight: size.height,

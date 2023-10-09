@@ -6,6 +6,14 @@
 
 A Flutter plugin designed for flutter flame and bonfire to allow users to create their own levels using tile sheets and sprite sheets.
 
+<picture>
+  <img alt="Image of how ember works." src="https://github.com/Knightro63/ember/blob/main/images/flutter_01.png">
+</picture>
+
+<picture>
+  <img alt="Image of how ember works." src="https://github.com/Knightro63/ember/blob/main/images/flutter_02.png">
+</picture>
+
 ## Getting started
 
 To get started with ember add the package to your pubspec.yaml file.

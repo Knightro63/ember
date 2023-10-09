@@ -30,35 +30,39 @@ class RotateRect{
 
 class ModelRender extends LevelEditor{
 
-  ModelRender(
-    LevelScene scene
-  ):super(
+  ModelRender({
+    Key? key,
+    required LevelScene scene
+  }):super(
+    key: key,
     scene: scene
   );
 
-  Light light = Light();
-  BlendMode blendMode = BlendMode.srcOver;
-  BlendMode textureBlendMode = BlendMode.srcOver;
-  int vertexCount = 0;
-  int faceCount = 0;
+  final Light light = Light();
+  final BlendMode blendMode = BlendMode.srcOver;
+  final BlendMode textureBlendMode = BlendMode.srcOver;
 
-  SortingType sortingType = SortingType.hsr;
+
+  final SortingType sortingType = SortingType.hsr;
 
   // calcuthe total number of vertices and facese
-  void _calculateVertices(Object o) {
+  List<int> _calculateVertices(Object o) {
+    int vertexCount = 0;
+    int faceCount = 0;
     for (int i = 0; i < o.mesh.length; i++){
       vertexCount += o.mesh[i].vertices.length;
       faceCount += o.mesh[i].indices.length;
     }
+
+    return [vertexCount,faceCount];
   }
   
   RenderMesh _makeRenderMesh(List<Object> objects, Image? texture){
-    vertexCount = 0;
-    faceCount = 0;
+    List<int> counts = [0,0];
     for(int i = 0; i < objects.length;i++){
-      _calculateVertices(objects[i]);
+      counts = _calculateVertices(objects[i]);
     }
-    final renderMesh = RenderMesh(vertexCount, faceCount);
+    final renderMesh = RenderMesh(counts[0], counts[1]);
     renderMesh.texture = texture;
     return renderMesh;
   }

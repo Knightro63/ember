@@ -5,8 +5,6 @@ import 'image_editor.dart';
 import '../editors/editors.dart';
 import 'package:flutter/material.dart';
 
-typedef void SceneCreatedCallback(ImageScene scene);
-
 class ImageEditor extends StatefulWidget {
   const ImageEditor({
     Key? key,
@@ -18,7 +16,7 @@ class ImageEditor extends StatefulWidget {
 
   final bool interactive;
   final VoidCallback? onSceneUpdated;
-  final SceneCreatedCallback? onSceneCreated;
+  final void Function(ImageScene scene)? onSceneCreated;
   final ImageScene scene;
   
   @override

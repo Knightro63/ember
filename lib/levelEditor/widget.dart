@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'text_edit.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-typedef void SceneCreatedCallback(LevelScene scene);
 enum LevelEditorCallbacks{onTap,removeObject,save,open,undo,copy,paste,cut,newObject, nameChange}
 
 class LevelEditor extends StatefulWidget {
@@ -22,7 +21,7 @@ class LevelEditor extends StatefulWidget {
   }) : super(key: key);
 
   final bool interactive;
-  final SceneCreatedCallback? onSceneCreated;
+  final void Function(LevelScene scene)? onSceneCreated;
   final VoidCallback? onSceneUpdated;
   final LevelScene scene;
   final void Function({required LevelEditorCallbacks call, Offset? details})? callback;
@@ -490,7 +489,7 @@ class _CubePainter extends CustomPainter {
   final LevelScene _scene;
   late ModelRender model;
   _CubePainter(this._scene){
-    model = ModelRender(_scene);
+    model = ModelRender(scene:_scene);
   }
 
   @override
