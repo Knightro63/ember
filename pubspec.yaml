@@ -1,5 +1,5 @@
 name: ember
-description: A new Flutter package project.
+description: A Flutter plugin designed for flutter flame and bonfire to allow users to create their own levels using tile sheets and sprite sheets.
 version: 0.0.1
 repository: https://github.com/Knightro63/ember
 
@@ -14,10 +14,9 @@ dependencies:
   http: ^1.1.0
   vector_math: ^2.1.4
   path: ^1.8.3
+  logger: ^2.0.2+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-
-flutter:
+  flutter_lints: ^2.0.3

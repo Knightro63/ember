@@ -66,9 +66,9 @@ class OverlayClass extends StatefulWidget {
   final void Function(String)? onEditingComplete;
 
   @override
-  _OverlayClassState createState() => _OverlayClassState();
+  OverlayClassState createState() => OverlayClassState();
 }
-class _OverlayClassState extends State<OverlayClass> {
+class OverlayClassState extends State<OverlayClass> {
   TextEditingController controller = TextEditingController();
   
   @override

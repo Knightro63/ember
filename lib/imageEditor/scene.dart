@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
+import 'package:ember/utils/logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:vector_math/vector_math_64.dart' hide Triangle, Vector4, Colors;
@@ -157,7 +157,7 @@ class ImageScene {
         }
       }
     }
-    print(type == selectableType);
+    logger?.verbose(type == selectableType);
     if(tapLocation != null && rect.contains(tapLocation!) && isDifferent && type == selectableType){
       isClicked = true;
       if(currentSize == null){
@@ -231,7 +231,7 @@ class ImageScene {
   }
   // Mark needs update texture
   void updateTapLocation(Offset details) {
-    print(details);
+    logger?.verbose(details);
     if(!isControlPressed){
       objectTappedOn = [];
       currentSize = null;

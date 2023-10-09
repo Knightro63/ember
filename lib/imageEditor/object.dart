@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter/material.dart' hide Image;
 import 'package:vector_math/vector_math_64.dart' hide Triangle hide Colors;
 import '../editors/editors.dart';
 
@@ -29,21 +28,21 @@ class Object {
   late Vector3 position;
   Vector3 _tempPosition = Vector3.zero();
   late Size size;
-  Vector2 _from = Vector2(0,0);
+  Vector2 from = Vector2(0,0);
 
   void updatePositionStart(Vector2 to){
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void updatePosition(Vector2 to, [double sensitivity=1.0]){
-    final double x = (to.x - _from.x)/100*sensitivity;
-    final double y = (to.y - _from.y)/100*sensitivity;
+    final double x = (to.x - from.x)/100*sensitivity;
+    final double y = (to.y - from.y)/100*sensitivity;
 
     position.x += x;
     position.y -= y;
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void move(int x, int y){
     position.x = _tempPosition.x+x/100;
@@ -59,13 +58,13 @@ class Object {
     size = Size(size.width+x,size.height+y);
   }
   void scaleMouse(Vector2 to, [double sensitivity=1.0]){
-    final double x = ((to.x - _from.x))*sensitivity;
-    final double y = ((to.y - _from.y))*sensitivity;
+    final double x = ((to.x - from.x))*sensitivity;
+    final double y = ((to.y - from.y))*sensitivity;
 
     size = Size(size.width+x,size.height+y);
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
 }
 class SpriteImage{
@@ -86,24 +85,24 @@ class SpriteImage{
   String name;
   late Vector3 position;
   Vector3 _tempPosition = Vector3.zero();
-  Vector2 _from = Vector2(0,0);
+  Vector2 from = Vector2(0,0);
   Color color;
 
   void updatePositionStart(Vector2 to){
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void updatePosition(Vector2 to, [double sensitivity=1.0]){
-    final double x = ((to.x - _from.x))/100*sensitivity;
-    final double y = ((to.y - _from.y))/100*sensitivity;
+    final double x = ((to.x - from.x))/100*sensitivity;
+    final double y = ((to.y - from.y))/100*sensitivity;
 
     position.x += x;
     position.y -= y;
 
     _tempPosition = position;
 
-    _from.x = to.x;
-    _from.y = to.y;
+    from.x = to.x;
+    from.y = to.y;
   }
   void move(int x, int y){
     position.x = _tempPosition.x+x/100;

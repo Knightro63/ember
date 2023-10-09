@@ -22,10 +22,10 @@ class ImageEditor extends StatefulWidget {
   final ImageScene scene;
   
   @override
-  _ImageEditorState createState() => _ImageEditorState();
+  ImageEditorState createState() => ImageEditorState();
 }
 
-class _ImageEditorState extends State<ImageEditor> {
+class ImageEditorState extends State<ImageEditor> {
   late ImageScene scene;
   Offset? _lastFocalPointZoom;
   double? _lastZoom;

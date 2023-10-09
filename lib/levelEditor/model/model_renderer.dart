@@ -199,7 +199,7 @@ class ModelRender extends LevelEditor{
     final Float32List positionsZ = renderMesh.positionsZ;
 
     final List<Vector3> vertices = o.mesh[mesh].vertices;
-    final List<Vector3> normals = o.mesh[mesh].normals;
+    //final List<Vector3> normals = o.mesh[mesh].normals;
 
     final int vertexOffset = renderMesh.vertexCount;
     final int vertexCount = vertices.length;
@@ -212,9 +212,9 @@ class ModelRender extends LevelEditor{
 
     //color information
     final Int32List renderColors = renderMesh.colors;
-    final Matrix4 normalTransform = (model.clone()..invert()).transposed();
-    final Vector3 viewPosition = Vector3.copy(scene.camera.rotation);
-    final Material material = o.mesh[mesh].material;
+    // final Matrix4 normalTransform = (model.clone()..invert()).transposed();
+    // final Vector3 viewPosition = Vector3.copy(scene.camera.rotation);
+    // final Material material = o.mesh[mesh].material;
     final List<Color> colors = o.mesh[mesh].colors;
 
     //texture information
@@ -317,7 +317,7 @@ class ModelRender extends LevelEditor{
     // });
 
     for (int i = 0; i < indexCount; i++) {
-      if(renderPolys[i] != null){
+      //if(renderPolys[i] != null){
         final int index0 = i * 3;
         final int index1 = index0 + 1;
         final int index2 = index0 + 2;
@@ -326,7 +326,7 @@ class ModelRender extends LevelEditor{
         indices[index0] = triangle.vertexes[0];
         indices[index1] = triangle.vertexes[1];
         indices[index2] = triangle.vertexes[2];
-      }
+      //}
 
       if(i < scene.objectTappedOn.length){
         int sel = scene.objectTappedOn[i].objectLocation;
@@ -420,7 +420,7 @@ class ModelRender extends LevelEditor{
     final Uint16List indices = Uint16List(indexCount * 3);
 
     for (int i = 0; i < indexCount; i++) {
-      if(renderPolys[i] != null){
+      //if(renderPolys[i] != null){
         final int index0 = i * 3;
         final int index1 = index0 + 1;
         final int index2 = index0 + 2;
@@ -429,7 +429,7 @@ class ModelRender extends LevelEditor{
         indices[index0] = triangle.vertexes[0];
         indices[index1] = triangle.vertexes[1];
         indices[index2] = triangle.vertexes[2];
-      }
+      //}
     }
     _drwaVert(
       canvas, 
@@ -453,7 +453,7 @@ class ModelRender extends LevelEditor{
     final Uint16List indices = Uint16List(indexCount * 3);
 
     for (int i = 0; i < indexCount; i++) {
-      if(renderPolys[i] != null){
+      //if(renderPolys[i] != null){
         final int index0 = i * 3;
         final int index1 = index0 + 1;
         final int index2 = index0 + 2;
@@ -462,7 +462,7 @@ class ModelRender extends LevelEditor{
         indices[index0] = triangle.vertexes[0];
         indices[index1] = triangle.vertexes[1];
         indices[index2] = triangle.vertexes[2];
-      }
+      //}
     }
     _drwaVert(
       canvas, 

@@ -121,13 +121,14 @@ class RightClick{
 }
 
 class OverlayClass extends StatefulWidget {
-  OverlayClass({
+  const OverlayClass({
+    Key? key,
     required this.style,
     required this.width,
     required this.theme,
     required this.function,
     required this.show,
-  });
+  }):super(key: key);
 
   final ThemeData theme;
   final TextStyle style;
@@ -136,9 +137,9 @@ class OverlayClass extends StatefulWidget {
   final List<RightClickOptions> show;
 
   @override
-  _OverlayClassState createState() => _OverlayClassState();
+  OverlayClassState createState() => OverlayClassState();
 }
-class _OverlayClassState extends State<OverlayClass> {
+class OverlayClassState extends State<OverlayClass> {
   RightClickOptions? hoverdOn;
 
   @override

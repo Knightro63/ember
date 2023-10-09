@@ -28,10 +28,10 @@ class LevelEditor extends StatefulWidget {
   final void Function({required LevelEditorCallbacks call, Offset? details})? callback;
   
   @override
-  _LevelEditorState createState() => _LevelEditorState();
+  LevelEditorState createState() => LevelEditorState();
 }
 
-class _LevelEditorState extends State<LevelEditor> {
+class LevelEditorState extends State<LevelEditor> {
   late LevelScene scene;
   Offset _lastFocalPoint = const Offset(0,0);
   double? _lastZoom;

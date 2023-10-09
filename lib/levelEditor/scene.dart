@@ -11,7 +11,7 @@ import 'level_editor.dart';
 import '../editors/editors.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 enum BrushStyles{stamp,fill,erase,move}
 
@@ -70,8 +70,8 @@ class LevelScene {
     double y = point.dy - center.dy;
 
     //APPLY ROTATION
-    double newX = x * Math.cos(angle) - y * Math.sin(angle);
-    double newY = x * Math.sin(angle) + y * Math.cos(angle);
+    double newX = x * math.cos(angle) - y * math.sin(angle);
+    double newY = x * math.sin(angle) + y * math.cos(angle);
 
     //TRANSLATE BACK
     return Offset(newX + center.dx, newY + center.dy);
@@ -464,7 +464,7 @@ class LevelScene {
     int y = selectedTileLocation < width?0:(selectedTileLocation/width).floor();
     int x = selectedTileLocation < width?selectedTileLocation:selectedTileLocation-width*y;
     flood.floodFill(x, y).then((value){
-      levelInfo[selectedLevel].tileLayer[levelInfo[selectedLevel].selectedTileLayer].tiles = flood.allTiles as List<TileRects>;
+      levelInfo[selectedLevel].tileLayer[levelInfo[selectedLevel].selectedTileLayer].tiles = flood.allTiles;
     });
   }
 
